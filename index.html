@@ -3,123 +3,500 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | 白倉幹久</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>AL×Webサービス開発受託 | プロフェッショナル開発</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-elevated: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-dim: #388bfd;
+      --success: #3fb950;
+      --font: 'Noto Sans JP', sans-serif;
+      --radius: 8px;
+      --radius-tile: 12px;
+      --transition: 0.2s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; transition: color var(--transition), opacity var(--transition); }
+    a:hover { color: var(--accent); }
+    ul { list-style: none; }
+
+    /* ========== Header ========== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .logo span { color: var(--accent); }
+    .nav-list { display: flex; gap: 2.5rem; }
+    .nav-list a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .nav-list a:hover { color: var(--accent); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: var(--transition);
+    }
+    .nav-toggle.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* ========== Hero ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56, 139, 253, 0.08), transparent),
+                  linear-gradient(to bottom, var(--bg), var(--bg));
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-title .line2 { color: var(--text-muted); font-weight: 500; }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--accent-dim);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(56, 139, 253, 0.25);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-scroll span { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.15em; }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      border-radius: 2px;
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ========== Section common ========== */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    /* ========== Services Tiles ========== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-tile);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+    .tile:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+    .tile-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--surface-elevated);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      color: var(--accent);
+    }
+    .tile-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .tile-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ========== About ========== */
+    .about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-visual {
+      aspect-ratio: 4/3;
+      background: var(--surface-elevated);
+      border-radius: var(--radius-tile);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ========== Strengths Tiles ========== */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .strength-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-tile);
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      transition: var(--transition);
+    }
+    .strength-tile:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    .strength-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: 0.8;
+      line-height: 1;
+    }
+    .strength-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .strength-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ========== Flow Tiles ========== */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .flow-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-tile);
+      padding: 1.75rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .flow-tile:hover { border-color: var(--accent); }
+    .flow-step {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .flow-title { font-size: 1rem; font-weight: 600; }
+
+    /* ========== Contact ========== */
+    .contact {
+      text-align: center;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .contact-text {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .btn-large { padding: 1rem 2.5rem; font-size: 1rem; }
+
+    /* ========== Footer ========== */
+    .footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer p { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 992px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .strengths-grid { grid-template-columns: 1fr; }
+      .flow-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-list {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 80%;
+        max-width: 280px;
+        height: 100vh;
+        background: var(--surface);
+        flex-direction: column;
+        padding: 5rem 2rem 2rem;
+        gap: 1.5rem;
+        border-left: 1px solid var(--border);
+        transform: translateX(100%);
+        transition: transform var(--transition);
+      }
+      .nav-list.is-open { transform: translateX(0); }
+      .nav-toggle { display: flex; z-index: 101; }
+      .flow-grid { grid-template-columns: 1fr; }
+      .section { padding: 4rem 1.5rem; }
+    }
+  </style>
 </head>
 <body>
   <header class="header">
     <nav class="nav">
-      <a href="#" class="logo">Portfolio</a>
+      <a href="#" class="logo">AL<span>×</span>Web</a>
       <ul class="nav-list">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#works">Works</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#services">サービス</a></li>
+        <li><a href="#about">会社概要</a></li>
+        <li><a href="#strengths">強み</a></li>
+        <li><a href="#flow">ご依頼の流れ</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
       </ul>
       <button class="nav-toggle" aria-label="メニューを開く">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <div class="hero-content">
-        <p class="hero-greeting">Hello, I'm</p>
-        <h1 class="hero-title">白倉幹久</h1>
-        <p class="hero-subtitle">Web Developer / Designer</p>
-        <a href="#contact" class="btn btn-primary">お問い合わせ</a>
-      </div>
+      <p class="hero-badge">AI × Web Service Development</p>
+      <h1 class="hero-title">AL×Webサービス<br><span class="line2">開発受託</span></h1>
+      <p class="hero-subtitle">AI技術とWeb開発の知見で、貴社のビジネスを次のステージへ。要件定義から設計・実装・運用まで一気通貫でお任せください。</p>
+      <a href="#contact" class="btn btn-primary">お問い合わせ</a>
       <div class="hero-scroll">
-        <span>Scroll</span>
+        <span>SCROLL</span>
         <div class="scroll-line"></div>
       </div>
     </section>
 
+    <section id="services" class="section">
+      <p class="section-label">SERVICES</p>
+      <h2 class="section-title">サービス</h2>
+      <div class="services-grid">
+        <article class="tile">
+          <div class="tile-icon">AI</div>
+          <h3 class="tile-title">AI・LLM活用開発</h3>
+          <p class="tile-desc">チャットボット、RAG、業務効率化など、大規模言語モデルを活用したシステムの設計・開発を承ります。</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon">Web</div>
+          <h3 class="tile-title">Webサービス開発</h3>
+          <p class="tile-desc">SPA・API・バックエンドまで、スケーラブルで保守しやすいWebアプリケーションを構築します。</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon">DX</div>
+          <h3 class="tile-title">DX・システム受託</h3>
+          <p class="tile-desc">既存業務のデジタル化、内製化支援、技術選定から実装・運用までワンストップで対応します。</p>
+        </article>
+      </div>
+    </section>
+
     <section id="about" class="section about">
-      <h2 class="section-title">About</h2>
-      <div class="about-content">
-        <div class="about-image">
-          <div class="about-image-placeholder"></div>
-        </div>
+      <p class="section-label">ABOUT</p>
+      <h2 class="section-title">会社概要</h2>
+      <div class="about-inner">
+        <div class="about-visual">AL×Web</div>
         <div class="about-text">
-          <p>
-            はじめまして。Web制作・デザインをしています。
-            ユーザー体験を大切に、使いやすく美しいサイトづくりを心がけています。
-          </p>
-          <p>
-            新しい技術やデザインのトレンドにアンテナを張り、
-            日々スキルアップに励んでいます。
-          </p>
+          <p>私たちは、AI技術とWeb開発の両輪で、企業のデジタル変革を支援する開発会社です。最新のLLM・APIを活用した機能設計から、堅牢なWebサービス開発まで、プロフェッショナルとして一貫した品質でお届けします。</p>
+          <p>要件のヒアリングから設計・開発・リリース後の改善まで、貴社のパートナーとして伴走し、持続可能なシステムづくりをサポートします。</p>
         </div>
       </div>
     </section>
 
-    <section id="skills" class="section skills">
-      <h2 class="section-title">Skills</h2>
-      <ul class="skills-list">
-        <li class="skill-item">
-          <span class="skill-name">HTML / CSS</span>
-          <div class="skill-bar"><span class="skill-level" style="width: 90%"></span></div>
-        </li>
-        <li class="skill-item">
-          <span class="skill-name">JavaScript</span>
-          <div class="skill-bar"><span class="skill-level" style="width: 75%"></span></div>
-        </li>
-        <li class="skill-item">
-          <span class="skill-name">デザイン</span>
-          <div class="skill-bar"><span class="skill-level" style="width: 80%"></span></div>
-        </li>
-        <li class="skill-item">
-          <span class="skill-name">Photoshop / Figma</span>
-          <div class="skill-bar"><span class="skill-level" style="width: 70%"></span></div>
-        </li>
-      </ul>
+    <section id="strengths" class="section">
+      <p class="section-label">STRENGTHS</p>
+      <h2 class="section-title">強み</h2>
+      <div class="strengths-grid">
+        <div class="strength-tile">
+          <span class="strength-num">01</span>
+          <div>
+            <h3 class="strength-title">AI×Webの一気通貫</h3>
+            <p class="strength-desc">AI・LLMとWebアプリの両方の知見を持ち、設計から実装まで一貫して対応。技術のつなぎ目で発生する齟齬を防ぎます。</p>
+          </div>
+        </div>
+        <div class="strength-tile">
+          <span class="strength-num">02</span>
+          <div>
+            <h3 class="strength-title">要件定義から運用まで</h3>
+            <p class="strength-desc">「何を作るか」の整理から、リリース後の改善・保守まで。受託開発として責任を持って最後まで伴走します。</p>
+          </div>
+        </div>
+        <div class="strength-tile">
+          <span class="strength-num">03</span>
+          <div>
+            <h3 class="strength-title">プロフェッショナル品質</h3>
+            <p class="strength-desc">テスト・ドキュメント・セキュリティを重視した設計で、長期運用を見据えた保守性の高いシステムを提供します。</p>
+          </div>
+        </div>
+        <div class="strength-tile">
+          <span class="strength-num">04</span>
+          <div>
+            <h3 class="strength-title">柔軟な契約・体制</h3>
+            <p class="strength-desc">プロジェクト単位・月額・スポットなど、ご予算とスケジュールに合わせた柔軟な契約形態をご提案します。</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="works" class="section works">
-      <h2 class="section-title">Works</h2>
-      <div class="works-grid">
-        <article class="work-card">
-          <div class="work-image">01</div>
-          <h3 class="work-title">プロジェクト名</h3>
-          <p class="work-desc">Webサイトの説明文をここに記載します。</p>
-          <a href="#" class="work-link">View more →</a>
-        </article>
-        <article class="work-card">
-          <div class="work-image">02</div>
-          <h3 class="work-title">プロジェクト名</h3>
-          <p class="work-desc">Webサイトの説明文をここに記載します。</p>
-          <a href="#" class="work-link">View more →</a>
-        </article>
-        <article class="work-card">
-          <div class="work-image">03</div>
-          <h3 class="work-title">プロジェクト名</h3>
-          <p class="work-desc">Webサイトの説明文をここに記載します。</p>
-          <a href="#" class="work-link">View more →</a>
-        </article>
+    <section id="flow" class="section">
+      <p class="section-label">FLOW</p>
+      <h2 class="section-title">ご依頼の流れ</h2>
+      <div class="flow-grid">
+        <div class="flow-tile">
+          <p class="flow-step">STEP 1</p>
+          <h3 class="flow-title">お問い合わせ</h3>
+        </div>
+        <div class="flow-tile">
+          <p class="flow-step">STEP 2</p>
+          <h3 class="flow-title">ヒアリング・提案</h3>
+        </div>
+        <div class="flow-tile">
+          <p class="flow-step">STEP 3</p>
+          <h3 class="flow-title">設計・見積もり</h3>
+        </div>
+        <div class="flow-tile">
+          <p class="flow-step">STEP 4</p>
+          <h3 class="flow-title">開発・納品</h3>
+        </div>
       </div>
     </section>
 
     <section id="contact" class="section contact">
-      <h2 class="section-title">Contact</h2>
-      <p class="contact-text">お仕事のご依頼・ご相談はこちらからお気軽にどうぞ。</p>
-      <a href="mailto:your@email.com" class="btn btn-primary btn-large">メールを送る</a>
-      <ul class="contact-links">
-        <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="#" target="_blank" rel="noopener">X (Twitter)</a></li>
-        <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-      </ul>
+      <p class="section-label">CONTACT</p>
+      <h2 class="section-title">お問い合わせ</h2>
+      <p class="contact-text">AL×Webサービス開発のご依頼・ご相談はこちらから。まずはお気軽にご連絡ください。</p>
+      <a href="mailto:contact@example.com" class="btn btn-primary btn-large">メールでお問い合わせ</a>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; 2025 白倉幹久. All Rights Reserved.</p>
+    <p>&copy; 2025 AL×Web. All Rights Reserved.</p>
   </footer>
 
   <script>
@@ -127,7 +504,6 @@
       document.querySelector('.nav-list').classList.toggle('is-open');
       this.classList.toggle('is-open');
     });
-
     document.querySelectorAll('.nav-list a').forEach(function(link) {
       link.addEventListener('click', function() {
         document.querySelector('.nav-list').classList.remove('is-open');

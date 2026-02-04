@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | 白倉幹久</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <a href="#" class="logo">Portfolio</a>
+      <ul class="nav-list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#works">Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="メニューを開く">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-title">白倉幹久</h1>
+        <p class="hero-subtitle">Web Developer / Designer</p>
+        <a href="#contact" class="btn btn-primary">お問い合わせ</a>
+      </div>
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <h2 class="section-title">About</h2>
+      <div class="about-content">
+        <div class="about-image">
+          <div class="about-image-placeholder"></div>
+        </div>
+        <div class="about-text">
+          <p>
+            はじめまして。Web制作・デザインをしています。
+            ユーザー体験を大切に、使いやすく美しいサイトづくりを心がけています。
+          </p>
+          <p>
+            新しい技術やデザインのトレンドにアンテナを張り、
+            日々スキルアップに励んでいます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills">
+      <h2 class="section-title">Skills</h2>
+      <ul class="skills-list">
+        <li class="skill-item">
+          <span class="skill-name">HTML / CSS</span>
+          <div class="skill-bar"><span class="skill-level" style="width: 90%"></span></div>
+        </li>
+        <li class="skill-item">
+          <span class="skill-name">JavaScript</span>
+          <div class="skill-bar"><span class="skill-level" style="width: 75%"></span></div>
+        </li>
+        <li class="skill-item">
+          <span class="skill-name">デザイン</span>
+          <div class="skill-bar"><span class="skill-level" style="width: 80%"></span></div>
+        </li>
+        <li class="skill-item">
+          <span class="skill-name">Photoshop / Figma</span>
+          <div class="skill-bar"><span class="skill-level" style="width: 70%"></span></div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="works" class="section works">
+      <h2 class="section-title">Works</h2>
+      <div class="works-grid">
+        <article class="work-card">
+          <div class="work-image">01</div>
+          <h3 class="work-title">プロジェクト名</h3>
+          <p class="work-desc">Webサイトの説明文をここに記載します。</p>
+          <a href="#" class="work-link">View more →</a>
+        </article>
+        <article class="work-card">
+          <div class="work-image">02</div>
+          <h3 class="work-title">プロジェクト名</h3>
+          <p class="work-desc">Webサイトの説明文をここに記載します。</p>
+          <a href="#" class="work-link">View more →</a>
+        </article>
+        <article class="work-card">
+          <div class="work-image">03</div>
+          <h3 class="work-title">プロジェクト名</h3>
+          <p class="work-desc">Webサイトの説明文をここに記載します。</p>
+          <a href="#" class="work-link">View more →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="contact-text">お仕事のご依頼・ご相談はこちらからお気軽にどうぞ。</p>
+      <a href="mailto:your@email.com" class="btn btn-primary btn-large">メールを送る</a>
+      <ul class="contact-links">
+        <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="#" target="_blank" rel="noopener">X (Twitter)</a></li>
+        <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 白倉幹久. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+      document.querySelector('.nav-list').classList.toggle('is-open');
+      this.classList.toggle('is-open');
+    });
+
+    document.querySelectorAll('.nav-list a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.querySelector('.nav-list').classList.remove('is-open');
+        document.querySelector('.nav-toggle').classList.remove('is-open');
+      });
+    });
+  </script>
+</body>
+</html>
